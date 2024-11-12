@@ -18,8 +18,8 @@ const TextEditor = ({ fileId }) => {
   const { user } = useUser();
   const saveNotes = useMutation(api.notes.AddNotes);
   const notes = useQuery(api.notes.GetAllNotes, {
-    fileId: fileId
-  })
+    fileId: fileId,
+  });
   const [inputVal, setInputVal] = useState("");
 
   const onClickHandler = async () => {
@@ -39,7 +39,6 @@ const TextEditor = ({ fileId }) => {
         AllunFormattedAns += item.pageContent;
       });
 
-    console.log("AllunFormattedAns", AllunFormattedAns);
     const PROMPT = `FOR Question: ${selectedText} and with the given context as answer ${AllunFormattedAns}, please give appropriate answer in HTML format.`;
     const AiModelResult = await chatSession.sendMessage(PROMPT);
     const FinalAns = AiModelResult.response
@@ -54,7 +53,7 @@ const TextEditor = ({ fileId }) => {
     saveNotes({
       notes: editor.getHTML(),
       fileId: fileId,
-      createBy: user?.primaryEmailAddress?.emailAddress
+      createBy: user?.primaryEmailAddress?.emailAddress,
     });
   };
 
@@ -73,11 +72,11 @@ const TextEditor = ({ fileId }) => {
     },
   });
 
-  // const GetAllNotes = 
+  // const GetAllNotes =
   useEffect(() => {
     if (!editor) return;
     editor.commands.setContent(notes);
-  }, [editor&&notes])
+  }, [editor && notes]);
 
   return (
     <div>

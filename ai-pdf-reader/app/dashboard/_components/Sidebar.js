@@ -18,9 +18,6 @@ const Sidebar = () => {
     useEmail: user?.primaryEmailAddress?.emailAddress,
   });
 
-  console.log("The user info is", GetUserInfo);
-  console.log(GetUserInfo ? GetUserInfo[0]?.upgrade : "Loading...");
-
   const fileList = useQuery(api.fileStorage.GetUserFiles, {
     userEmail: user?.primaryEmailAddress?.emailAddress,
   });

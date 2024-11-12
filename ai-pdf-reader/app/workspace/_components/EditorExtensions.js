@@ -15,26 +15,21 @@ const EditorExtensions = ({ editor }) => {
 
   const onAiClick = async () => {
     toast("AI is thinking...");
-    console.log("The file id is in EditorExtensions -", fileId);
     const selectedText = editor.state.doc.textBetween(
       editor.state.selection.from,
       editor.state.selection.to,
       " "
     );
-    console.log("here the selected text -", selectedText);
     const result = await searchAI({
       query: selectedText,
       fileId: fileId,
     });
-    console.log("unFormattedAns------------", result);
     const unFormattedAns = JSON.parse(result);
     let AllunFormattedAns = "";
     unFormattedAns &&
       unFormattedAns.forEach((item) => {
         AllunFormattedAns = AllunFormattedAns + item.pageContent;
       });
-    console.log("the item is ", unFormattedAns);
-    console.log("AllunFormattedAns", AllunFormattedAns);
     const PROMPT =
       "FOR Question : " +
       selectedText +

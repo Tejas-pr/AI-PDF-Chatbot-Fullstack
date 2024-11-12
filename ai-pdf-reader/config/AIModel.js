@@ -1,7 +1,5 @@
 const {
   GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
 } = require("@google/generative-ai");
 
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
@@ -23,6 +21,3 @@ export const chatSession = model.startChat({
   generationConfig,
   history: [],
 });
-
-// const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-// console.log(result.response.text());

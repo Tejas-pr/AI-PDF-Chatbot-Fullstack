@@ -22,7 +22,6 @@ export default function Home() {
       email: user?.primaryEmailAddress?.emailAddress,
       imageUrl: user?.imageUrl,
     });
-    console.log(result);
   };
 
   return (

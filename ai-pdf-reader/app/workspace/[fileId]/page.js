@@ -9,11 +9,9 @@ import { useParams } from "next/navigation";
 
 const WorkSpace = () => {
   const { fileId } = useParams(); // from here error
-  console.log(" the file id is ", fileId);
   const fileInfo = useQuery(api.fileStorage.GetFileRecord, {
     fileId: fileId,
   });
-  console.log("in filed - pages " , fileInfo?.fileUrl);
   useEffect(() => {
     console.log(fileInfo);
   }, [fileId]);

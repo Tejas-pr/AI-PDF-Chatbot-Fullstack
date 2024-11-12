@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction, useMutation } from "convex/react";
 import { Loader2Icon } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -67,10 +66,8 @@ const UploadPdf = ({ isMaxFile }) => {
         body: useFile,
       });
       const { storageId } = await result.json();
-      console.log("the storage id is ", storageId);
       const fileId = uuid4();
       const fileUrl = await getFileUrl({ storageId });
-      console.log("fileUrl is ------- ", fileUrl);
       await addFileEntry({
         fileId: fileId,
         storage: storageId,
@@ -81,14 +78,11 @@ const UploadPdf = ({ isMaxFile }) => {
       toast({ title: "File uploaded successfully", type: "success" });
 
       // API call to fetch PDF process data
-      console.log("above the axious acall");
       const response = await axios.get(`/api/pdf-loader?pdfUrl=${fileUrl}`);
-      console.log("the response is ", response.data.result);
       const embadedresult = await embeddDocumnet({
         splitText: response.data.result,
         fileId: fileId,
       });
-      console.log("the embaded result is ", embadedresult);
     } catch (error) {
       toast({ title: "Upload failed. Please try again", type: "error" });
     } finally {
