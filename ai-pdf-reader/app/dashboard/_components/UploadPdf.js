@@ -80,15 +80,16 @@ const UploadPdf = ({ children }) => {
         createBy: user?.primaryEmailAddress?.emailAddress,
       });
       toast({ title: "File uploaded successfully", type: "success" });
+
       // API call to fetch PDF process data
-      console.log("im here");
 
       const response = await axios.get(`/api/pdf-loader?pdfUrl=${fileUrl}`);
-      await embeddDocumnet({
+      console.log("the response is ", response.data.result);
+      const embadedresult = await embeddDocumnet({
         splitText: response.data.result,
         fileId: fileId,
       });
-      console.log("the response is ", response)
+      console.log("the embaded result is ", embadedresult);
     } catch (error) {
       toast({ title: "Upload failed. Please try again", type: "error" });
     } finally {
@@ -99,9 +100,11 @@ const UploadPdf = ({ children }) => {
 
   return (
     <>
-      <Dialog open={open} >
+      <Dialog open={open}>
         <DialogTrigger asChild>
-          <Button onClick={() => setOpen(true)} className="w-full">+ Upload PDF File</Button>
+          <Button onClick={() => setOpen(true)} className="w-full">
+            + Upload PDF File
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

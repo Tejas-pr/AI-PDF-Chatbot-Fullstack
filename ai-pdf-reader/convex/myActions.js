@@ -10,10 +10,11 @@ export const ingest = action({
     fileId: v.string(),
   },
   handler: async (ctx, args) => {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+    const apiKey = "AIzaSyCiaa5W0328n9DecOiAnf_QgLDGeMpWQYU";
+    // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
     await ConvexVectorStore.fromTexts(
-      args.splitText, // array of text segments
-      { fileId: args.fileId }, // Pass metadata as an object with the correct key
+      args.splitText,
+      { fileId: args.fileId },
       new GoogleGenerativeAIEmbeddings({
         apiKey: apiKey,
         model: "text-embedding-004", // 768 dimensions
@@ -31,8 +32,7 @@ export const search = action({
     fileId: v.string(),
   },
   handler: async (ctx, args) => {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-    // convert the input text and need to match with db vector to get the answer
+    const apiKey = "AIzaSyCiaa5W0328n9DecOiAnf_QgLDGeMpWQYU";
     const vectorStore = new ConvexVectorStore(
       new GoogleGenerativeAIEmbeddings({
         apiKey: apiKey,

@@ -1,27 +1,61 @@
 import { useParams } from "next/navigation";
-import { useAction } from "convex/react";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ArrowRight } from "lucide-react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditorExtensions from "./EditorExtensions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import Placeholder from "@tiptap/extension-placeholder";
+import { toast } from "sonner";
+import { chatSession } from "@/config/AIModel";
+import { useUser } from "@clerk/nextjs";
 
-const TextEditor = () => {
-  const { fileId } = useParams(); // ✅ Move to the top level
-  const searchAI = useAction(api.myActions.search); // ✅ Move to the top level
+const TextEditor = ({ fileId }) => {
+  const searchAI = useAction(api.myActions.search);
+  const { user } = useUser();
+  const saveNotes = useMutation(api.notes.AddNotes);
+  const notes = useQuery(api.notes.GetAllNotes, {
+    fileId: fileId
+  })
   const [inputVal, setInputVal] = useState("");
 
   const onClickHandler = async () => {
-    console.log("The file ID is in TextEditor", fileId);
+    if (!editor) return;
+
+    toast("AI is thinking...");
+    const selectedText = inputVal;
     const result = await searchAI({
-      query: inputVal,
+      query: selectedText,
       fileId: fileId,
     });
-    console.log(result);
+
+    const unFormattedAns = JSON.parse(result);
+    let AllunFormattedAns = "";
+    unFormattedAns &&
+      unFormattedAns.forEach((item) => {
+        AllunFormattedAns += item.pageContent;
+      });
+
+    console.log("AllunFormattedAns", AllunFormattedAns);
+    const PROMPT = `FOR Question: ${selectedText} and with the given context as answer ${AllunFormattedAns}, please give appropriate answer in HTML format.`;
+    const AiModelResult = await chatSession.sendMessage(PROMPT);
+    const FinalAns = AiModelResult.response
+      .text()
+      .replace("```", "")
+      .replace("html", "")
+      .replace("```", "");
+
+    editor.commands.setContent(
+      "<p> <p>Answer for the input : </p> <br/>" + FinalAns + "</p>"
+    );
+    saveNotes({
+      notes: editor.getHTML(),
+      fileId: fileId,
+      createBy: user?.primaryEmailAddress?.emailAddress
+    });
   };
 
   const editor = useEditor({
@@ -39,21 +73,27 @@ const TextEditor = () => {
     },
   });
 
+  // const GetAllNotes = 
+  useEffect(() => {
+    if (!editor) return;
+    editor.commands.setContent(notes);
+  }, [editor&&notes])
+
   return (
     <div>
       <EditorExtensions editor={editor} />
-      <div>
+      <div className="overflow-y-scroll h-[60vh]">
         <EditorContent editor={editor} />
-        <div className="grid w-full gap-2 p-4">
-          <Textarea
-            placeholder="Type your message here."
-            onChange={(e) => setInputVal(e.target.value)}
-          />
-          <Button onClick={() => onClickHandler()}>
-            <span>Generate</span>
-            <ArrowRight />
-          </Button>
-        </div>
+      </div>
+      <div className="grid w-full gap-2 p-4">
+        <Textarea
+          placeholder="Type your message here."
+          onChange={(e) => setInputVal(e.target.value)}
+        />
+        <Button onClick={() => onClickHandler()}>
+          <span>Generate</span>
+          <ArrowRight />
+        </Button>
       </div>
     </div>
   );
