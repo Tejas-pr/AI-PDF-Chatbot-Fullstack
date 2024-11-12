@@ -68,8 +68,10 @@ const UploadPdf = ({ children }) => {
         body: useFile,
       });
       const { storageId } = await result.json();
+      console.log("the storage id is ", storageId);
       const fileId = uuid4();
       const fileUrl = await getFileUrl({ storageId });
+      console.log("fileUrl is ------- ", fileUrl);
       await addFileEntry({
         fileId: fileId,
         storage: storageId,
@@ -80,12 +82,13 @@ const UploadPdf = ({ children }) => {
       toast({ title: "File uploaded successfully", type: "success" });
       // API call to fetch PDF process data
       console.log("im here");
-      console.log("fileUrl", fileUrl);
+
       const response = await axios.get(`/api/pdf-loader?pdfUrl=${fileUrl}`);
       await embeddDocumnet({
         splitText: response.data.result,
         fileId: fileId,
       });
+      console.log("the response is ", response)
     } catch (error) {
       toast({ title: "Upload failed. Please try again", type: "error" });
     } finally {

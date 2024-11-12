@@ -42,11 +42,14 @@ export const GetFileRecord = query({
     fileId: v.string(),
   },
   handler: async (ctx, args) => {
+    console.log(args.fileId);
     const result = await ctx.db
       .query("pdfFile")
       .filter((q) => q.eq(q.field("fileId"), args.fileId))
+      // .filter((q) => q.eq(q.field("fileId"), "aff1e47c-fd3b-42c7-970b-5fa328b12a2a"))
       .collect();
-      console.log(result);
+      console.log("the result is : 12 ---",result);
+      console.log("the result is : 12 ---",result[0]);
       return result[0];
   },
 });

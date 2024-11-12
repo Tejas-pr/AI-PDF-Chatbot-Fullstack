@@ -1,26 +1,29 @@
-import Placeholder from "@tiptap/extension-placeholder";
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import React from "react";
-import EditorExtensions from "./EditorExtensions";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useParams } from "next/navigation";
 import { useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ArrowRight } from "lucide-react";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import React, { useState } from "react";
+import EditorExtensions from "./EditorExtensions";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import Placeholder from "@tiptap/extension-placeholder";
 
 const TextEditor = () => {
+  const { fileId } = useParams(); // ✅ Move to the top level
+  const searchAI = useAction(api.myActions.search); // ✅ Move to the top level
+  const [inputVal, setInputVal] = useState("");
+
   const onClickHandler = async () => {
-    const [inputVal, setInputVal] = React.useState("");
-    const { fileId } = useParams();
-    const searchAI = useAction(api.myActions.search);
+    console.log("The file ID is in TextEditor", fileId);
     const result = await searchAI({
       query: inputVal,
       fileId: fileId,
     });
     console.log(result);
   };
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -35,6 +38,7 @@ const TextEditor = () => {
       },
     },
   });
+
   return (
     <div>
       <EditorExtensions editor={editor} />
@@ -46,7 +50,8 @@ const TextEditor = () => {
             onChange={(e) => setInputVal(e.target.value)}
           />
           <Button onClick={() => onClickHandler()}>
-            <span>Generate</span><ArrowRight />
+            <span>Generate</span>
+            <ArrowRight />
           </Button>
         </div>
       </div>

@@ -8,10 +8,12 @@ import { api } from "@/convex/_generated/api";
 import TextEditor from "../_components/TextEditor";
 
 const WorkSpace = () => {
-  const { fileId } = useParams();
+  const { fileId } = useParams(); // from here error
+  console.log(" the file id is ", fileId);
   const fileInfo = useQuery(api.fileStorage.GetFileRecord, {
     fileId: fileId,
   });
+  console.log("in filed - pages " , fileInfo?.fileUrl);
   useEffect(() => {
     console.log(fileInfo);
   }, [fileId]);
