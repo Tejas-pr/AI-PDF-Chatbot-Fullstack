@@ -31,5 +31,6 @@ export async function GET(req) {
   output.forEach((doc) => {
     splitterList.push(doc.pageContent);
   });
+  console.log(splitterList);
   return NextResponse.json({ result: splitterList });
 }

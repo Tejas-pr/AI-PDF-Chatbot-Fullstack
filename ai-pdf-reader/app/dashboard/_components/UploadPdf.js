@@ -80,6 +80,7 @@ const UploadPdf = ({ children }) => {
       toast({ title: "File uploaded successfully", type: "success" });
       // API call to fetch PDF process data
       console.log("im here");
+      console.log("fileUrl", fileUrl);
       const response = await axios.get(`/api/pdf-loader?pdfUrl=${fileUrl}`);
       await embeddDocumnet({
         splitText: response.data.result,

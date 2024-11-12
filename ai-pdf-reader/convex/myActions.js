@@ -24,3 +24,27 @@ export const ingest = action({
     );
   },
 });
+
+export const search = action({
+  args: {
+    query: v.string(),
+    fileId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    // convert the input text and need to match with db vector to get the answer
+    const vectorStore = new ConvexVectorStore(
+      new GoogleGenerativeAIEmbeddings({
+        apiKey: apiKey,
+        model: "text-embedding-004", // 768 dimensions
+        taskType: TaskType.RETRIEVAL_DOCUMENT,
+        title: "Document title",
+      }),
+      { ctx }
+    );
+
+    const resultOne = (
+      await vectorStore.similaritySearch(args.query, 1)
+    ).filter((q) => q.metadata.fileId == args.fileId);
+    return JSON.stringify(resultOne);
+  },
+});
