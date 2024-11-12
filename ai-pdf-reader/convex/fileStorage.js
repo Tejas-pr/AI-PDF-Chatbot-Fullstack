@@ -47,8 +47,24 @@ export const GetFileRecord = query({
       .query("pdfFile")
       .filter((q) => q.eq(q.field("fileId"), args.fileId))
       .collect();
-      console.log("the result is : 12 ---",result);
-      console.log("the result is : 12 ---",result[0]);
-      return result[0];
+    console.log("the result is : 12 ---", result);
+    console.log("the result is : 12 ---", result[0]);
+    return result[0];
+  },
+});
+
+export const GetUserFiles = query({
+  args: {
+    userEmail: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    if(!args?.userEmail){
+      return ;
+    }
+    const result = await ctx.db
+      .query("pdfFile")
+      .filter((q) => q.eq(q.field("createBy"), args?.userEmail))
+      .collect();
+    return result;
   },
 });

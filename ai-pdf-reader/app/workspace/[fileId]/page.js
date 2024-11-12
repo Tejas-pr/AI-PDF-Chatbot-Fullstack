@@ -1,11 +1,11 @@
 "use client";
-import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import WorkSpaceHeader from "../_components/WorkSpaceHeader";
 import PdfViewer from "../_components/PdfViewer";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import TextEditor from "../_components/TextEditor";
+import { useParams } from "next/navigation";
 
 const WorkSpace = () => {
   const { fileId } = useParams(); // from here error

@@ -21,7 +21,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 
-const UploadPdf = ({ children }) => {
+const UploadPdf = ({ isMaxFile }) => {
   const [useFile, setUseFile] = useState();
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState();
@@ -42,7 +42,6 @@ const UploadPdf = ({ children }) => {
     setFileName(e.target.value);
   };
 
-  // Debouncing logic
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounce(fileName);
@@ -82,7 +81,7 @@ const UploadPdf = ({ children }) => {
       toast({ title: "File uploaded successfully", type: "success" });
 
       // API call to fetch PDF process data
-
+      console.log("above the axious acall");
       const response = await axios.get(`/api/pdf-loader?pdfUrl=${fileUrl}`);
       console.log("the response is ", response.data.result);
       const embadedresult = await embeddDocumnet({
@@ -100,18 +99,24 @@ const UploadPdf = ({ children }) => {
 
   return (
     <>
-      <Dialog open={open}>
+      <Dialog open={open} onOpenChange={setOpen}>
+        {" "}
+        {/* Added onOpenChange */}
         <DialogTrigger asChild>
-          <Button onClick={() => setOpen(true)} className="w-full">
+          <Button
+            onClick={() => setOpen(true)}
+            disabled={isMaxFile}
+            className="w-full"
+          >
             + Upload PDF File
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="mb-3">Upload PDF File</DialogTitle>
+            <DialogTitle className="mb-3" >Upload PDF File</DialogTitle>
             <DialogDescription asChild>
               <div>
-                <h2 className="">Select a file to Upload</h2>
+                <h2>Select a file to Upload</h2>
                 <div className="flex mt-1 p-4 rounded-md border">
                   <input
                     type="file"
@@ -120,7 +125,7 @@ const UploadPdf = ({ children }) => {
                   />
                 </div>
                 <div className="mt-2">
-                  <label htmlFor="">
+                  <label>
                     <span className="text-red-600">* </span>File Name
                   </label>
                   <Input
@@ -132,11 +137,13 @@ const UploadPdf = ({ children }) => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-end">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-            </DialogClose>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setOpen(false)}
+            >
+              Close
+            </Button>
             <Button onClick={onUplaod} disabled={loading}>
               {loading ? <Loader2Icon className="animate-spin" /> : "Upload"}
             </Button>
