@@ -13,7 +13,7 @@ const Header = () => {
       </Link>
       <div className="flex items-center justify-end">
         {user && (
-          <p className="mr-4">Hi ! {user.fullName || `${user.firstName} ${user.lastName}`}</p>
+          <p className="mr-4 text-xs md:text-md">Hi ! {user.fullName || `${user.firstName} ${user.lastName}`}</p>
         )}
         <UserButton />
       </div>

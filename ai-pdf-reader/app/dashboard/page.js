@@ -15,8 +15,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="">
-        <h2 className="font-medium text-3xl mt-24 ml-20 md:-ml-28">WorkSpace</h2>
+      <div className="pl-4">
+        <h2 className="font-medium text-3xl mt-28 ml-20 md:-ml-28">WorkSpace</h2>
         <div className="grid grid-cols-3 md:grid-cols-8 gap-5 mt-10 ml-20 md:-ml-28 mr-10">
           {fileList?.length > 0
             ? fileList.map((file) => (

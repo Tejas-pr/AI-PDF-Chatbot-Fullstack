@@ -36,7 +36,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     );
   }
   return (
-    <div className="w-64 md:w-96 h-screen bg-[#181C14] text-[#ECDFCC] fixed top-0 left-0 z-30 md:relative transition-all p-5 duration-500 shadow shadow-slate-700">
+    <div className="w-64 md:w-72 lg:w-96 h-screen bg-[#181C14] text-[#ECDFCC] fixed top-0 left-0 z-50 md:relative transition-all p-5 duration-500 shadow shadow-slate-700">
       <div className="flex gap-5 items-center justify-start">
         <div
           className="cursor-pointer block md:hidden"
