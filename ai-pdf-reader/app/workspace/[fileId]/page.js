@@ -12,18 +12,15 @@ const WorkSpace = () => {
   const fileInfo = useQuery(api.fileStorage.GetFileRecord, {
     fileId: fileId,
   });
-  useEffect(() => {
-    console.log(fileInfo);
-  }, [fileId]);
   return (
     <div>
-      <WorkSpaceHeader fileName={fileInfo?.fileName}/>
+      <WorkSpaceHeader fileName={fileInfo?.fileName} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <TextEditor fileId={fileId} />
         </div>
         <div>
-          <PdfViewer fileUrl={fileInfo?.fileUrl}/>
+          <PdfViewer fileUrl={fileInfo?.fileUrl} />
         </div>
       </div>
     </div>

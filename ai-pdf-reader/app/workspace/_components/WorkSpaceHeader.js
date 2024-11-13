@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 const WorkSpaceHeader = ({ fileName }) => {
   const { user } = useUser();
-  console.log("user", user);
   return (
     <div className="w-full flex items-center justify-between bg-[#181C14] text-[#ECDFCC] shadow-sm shadow-slate-500 p-4 fixed top-0 left-0 right-0">
       <Link href="/dashboard">

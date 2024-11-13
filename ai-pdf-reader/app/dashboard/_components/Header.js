@@ -6,7 +6,6 @@ import { motion } from "motion/react";
 
 const Header = () => {
   const { user } = useUser();
-  console.log("user", user);
   return (
     <div className="w-full flex items-center justify-between bg-[#181C14] mr-10 text-[#ECDFCC] shadow shadow-slate-700 p-4 fixed top-0 left-0 right-0">
       <Link href="/dashboard">
