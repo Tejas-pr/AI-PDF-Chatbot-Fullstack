@@ -5,6 +5,7 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react"
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -16,8 +17,24 @@ const Dashboard = () => {
   return (
     <>
       <div className="pl-4">
-        <h2 className="font-medium text-3xl mt-28 ml-20 md:-ml-28">WorkSpace</h2>
-        <div className="grid grid-cols-3 md:grid-cols-8 gap-5 mt-10 ml-20 md:-ml-28 mr-10">
+        <motion.h2 
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+        className="font-medium text-3xl mt-28 ml-20 md:-ml-28">WorkSpace</motion.h2>
+        <motion.div 
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.6,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+        className="grid grid-cols-3 md:grid-cols-8 gap-5 mt-10 ml-20 md:-ml-28 mr-10">
           {fileList?.length > 0
             ? fileList.map((file) => (
                 <Link href={"/workspace/" + file.fileId} key={file.fileId}>
@@ -35,7 +52,7 @@ const Dashboard = () => {
                   className="bg-slate-700 rounded-md h-[100px] w-[100px] animate-pulse"
                 ></div>
               ))}
-        </div>
+        </motion.div>
       </div>
     </>
   );

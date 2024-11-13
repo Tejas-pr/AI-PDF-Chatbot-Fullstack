@@ -104,7 +104,7 @@ const UploadPdf = ({ isMaxFile }) => {
             + Upload PDF File
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="bg-[#181C14] text-[#ECDFCC]">
           <DialogHeader>
             <DialogTitle className="mb-3" >Upload PDF File</DialogTitle>
             <DialogDescription asChild>
@@ -134,10 +134,11 @@ const UploadPdf = ({ isMaxFile }) => {
               type="button"
               variant="secondary"
               onClick={() => setOpen(false)}
+              className="text-[#181C14] bg-[#ECDFCC]"
             >
               Close
             </Button>
-            <Button onClick={onUplaod} disabled={loading}>
+            <Button onClick={onUplaod} disabled={loading} className="hover:bg-[#ECDFCC] hover:text-[#181C14]">
               {loading ? <Loader2Icon className="animate-spin" /> : "Upload"}
             </Button>
           </DialogFooter>

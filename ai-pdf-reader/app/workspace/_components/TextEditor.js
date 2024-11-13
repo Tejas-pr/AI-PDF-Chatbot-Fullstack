@@ -12,6 +12,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { toast } from "sonner";
 import { chatSession } from "@/config/AIModel";
 import { useUser } from "@clerk/nextjs";
+import { motion } from "motion/react";
 
 const TextEditor = ({ fileId }) => {
   const searchAI = useAction(api.myActions.search);
@@ -72,7 +73,6 @@ const TextEditor = ({ fileId }) => {
     },
   });
 
-  // const GetAllNotes =
   useEffect(() => {
     if (!editor) return;
     editor.commands.setContent(notes);
@@ -80,9 +80,8 @@ const TextEditor = ({ fileId }) => {
 
   return (
     <div className="bg-[#181C14] text-[#ECDFCC]">
-    {/* <div className=""> */}
       <EditorExtensions editor={editor} />
-      <div className="overflow-y-scroll h-[70vh] p-5">
+      <div className="overflow-y-scroll h-[71vh] md:h-[65vh] p-5">
         <EditorContent editor={editor} />
       </div>
       <div className="grid w-full gap-2 p-4">
@@ -90,7 +89,10 @@ const TextEditor = ({ fileId }) => {
           placeholder="Type your message here."
           onChange={(e) => setInputVal(e.target.value)}
         />
-        <Button onClick={() => onClickHandler()} >
+        <Button
+          onClick={() => onClickHandler()}
+          className="hover:bg-[#ECDFCC] hover:text-[#181C14]"
+        >
           <span>Generate</span>
           <ArrowRight />
         </Button>

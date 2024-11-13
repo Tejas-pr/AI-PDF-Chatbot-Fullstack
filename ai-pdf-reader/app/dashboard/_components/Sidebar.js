@@ -8,6 +8,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user } = useUser();
@@ -46,45 +47,86 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         >
           <AlignJustifyIcon />
         </div>
-        <div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+        >
           <Link href="/dashboard">
             <h2 className="text-xl font-bold">AI-PDF-READER</h2>
           </Link>
-        </div>
+        </motion.div>
       </div>
       <div className="mt-10">
-        <UploadPdf isMaxFile={fileList?.length >= 5}/>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.4,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+        >
+          <UploadPdf isMaxFile={fileList?.length >= 5} />
+        </motion.div>
         <Link href={"/dashboard"}>
-          <div
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
             className={`flex gap-2 items-center mt-5 p-3 hover:bg-slate-400 cursor-pointer ${
               path == "/dashboard" && "bg-slate-500"
             }`}
           >
             <Layout />
             <h2>Workspace</h2>
-          </div>
+          </motion.div>
         </Link>
         <Link href={"/dashboard/upgrade"}>
-          <div
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.6,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
             className={`flex gap-2 items-center mt-1 p-3 hover:bg-slate-400 cursor-pointer ${
               path == "/dashboard/upgrade" && "bg-slate-500"
             }`}
           >
             <Shield />
             <h2>Upgrade +</h2>
-          </div>
+          </motion.div>
         </Link>
       </div>
       {GetUserInfo && !GetUserInfo[0]?.upgrade && (
-        <div className="absolute bottom-24 pr-4 ">
-          <Progress value={(fileList?.length / 5) * 100}/>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.7,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className="absolute bottom-24 pr-4 "
+        >
+          <Progress value={(fileList?.length / 5) * 100} />
           <p className="text-sm mt-2">
             {fileList?.length} out of 5 Pdf Uploaded
           </p>
           <p className="text-xs mt-1 text-gray-400">
             Upgrade to Upload more PDF
           </p>
-        </div>
+        </motion.div>
       )}
     </div>
   );
