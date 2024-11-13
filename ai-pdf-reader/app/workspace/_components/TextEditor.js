@@ -79,9 +79,10 @@ const TextEditor = ({ fileId }) => {
   }, [editor && notes]);
 
   return (
-    <div>
+    <div className="bg-[#181C14] text-[#ECDFCC]">
+    {/* <div className=""> */}
       <EditorExtensions editor={editor} />
-      <div className="overflow-y-scroll h-[60vh]">
+      <div className="overflow-y-scroll h-[70vh] p-5">
         <EditorContent editor={editor} />
       </div>
       <div className="grid w-full gap-2 p-4">
@@ -89,7 +90,7 @@ const TextEditor = ({ fileId }) => {
           placeholder="Type your message here."
           onChange={(e) => setInputVal(e.target.value)}
         />
-        <Button onClick={() => onClickHandler()}>
+        <Button onClick={() => onClickHandler()} >
           <span>Generate</span>
           <ArrowRight />
         </Button>

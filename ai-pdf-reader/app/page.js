@@ -25,15 +25,15 @@ export default function Home() {
   };
 
   return (
-    <div className="overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-800">
-      <div className="flex justify-between items-center p-5 bg-gray-900 text-white fixed w-full top-0 left-0 z-10 shadow-md">
+    <div className="overflow-hidden bg-gradient-to-b from-[#181C14] via-gray-900 to-gray-800">
+      <div className="flex justify-between items-center p-5 bg-[#181C14] text-[#ECDFCC] fixed w-full top-0 left-0 z-10 shadow-md">
         <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold">AI PDF Generator</h2>
+          <h2 className="text-xl font-bold">AI PDF Chatbot</h2>
         </div>
 
         <div className="flex items-center gap-4">
           <Link href="/dashboard">
-            <Button className="px-8 py-3 text-xl bg-slate-500 text-white rounded-lg hover:bg-orange-400 transition-all">
+            <Button className="px-8 py-3 text-xl bg-slate-500 text-[#ECDFCC] rounded-lg hover:bg-orange-400 transition-all">
               Dashboard
             </Button>
           </Link>
@@ -44,15 +44,15 @@ export default function Home() {
 
       <div className="flex flex-col items-center justify-center h-screen gap-8">
         <motion.h1
-          className="text-8xl font-bold text-center text-white"
+          className="text-6xl md:text-6xl lg:text-8xl font-bold text-center text-[#ECDFCC] "
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          AI PDF <span className="text-orange-500">GENERATOR</span>
+          AI PDF <span className="text-orange-500">CHATBOT</span>
         </motion.h1>
         <motion.p
-          className="text-lg text-white text-center px-4"
+          className="text-sm md:text-2xl lg:text-lg text-[#ECDFCC] text-center px-4"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -68,7 +68,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="flex flex-col items-center py-20 bg-gray-900 text-white">
+      <div className="flex flex-col items-center py-20 bg-gray-900 text-[#ECDFCC]">
         <h2 className="text-5xl font-bold mb-8">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-screen-xl px-4">
           <div className="bg-black p-6 rounded-lg shadow-lg">
@@ -95,7 +95,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="py-10 bg-black text-white text-center">
+      <div className="py-10 bg-black text-[#ECDFCC] text-center">
         <p className="text-sm">
           © 2024 AI PDF Generator. All rights reserved.
         </p>

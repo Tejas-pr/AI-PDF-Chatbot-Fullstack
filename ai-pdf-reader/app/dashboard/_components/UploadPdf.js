@@ -95,12 +95,11 @@ const UploadPdf = ({ isMaxFile }) => {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         {" "}
-        {/* Added onOpenChange */}
         <DialogTrigger asChild>
           <Button
             onClick={() => setOpen(true)}
             disabled={isMaxFile}
-            className="w-full"
+            className="w-full bg-[#ECDFCC] text-black hover:text-white"
           >
             + Upload PDF File
           </Button>

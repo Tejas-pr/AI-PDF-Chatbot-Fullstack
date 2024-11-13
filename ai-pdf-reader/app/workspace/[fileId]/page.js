@@ -20,11 +20,9 @@ const WorkSpace = () => {
       <WorkSpaceHeader fileName={fileInfo?.fileName}/>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          {/* test editor  */}
           <TextEditor fileId={fileId} />
         </div>
         <div>
-          {/* pdf view  */}
           <PdfViewer fileUrl={fileInfo?.fileUrl}/>
         </div>
       </div>

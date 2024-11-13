@@ -1,7 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Layout, Shield } from "lucide-react";
+import { AlignJustifyIcon, Layout, Shield } from "lucide-react";
 import React from "react";
 import UploadPdf from "./UploadPdf";
 import { useUser } from "@clerk/nextjs";
@@ -10,7 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user } = useUser();
   const path = usePathname();
 
@@ -22,17 +21,43 @@ const Sidebar = () => {
     userEmail: user?.primaryEmailAddress?.emailAddress,
   });
 
+  if (!sidebarOpen) {
+    return (
+      <div className="fixed top-0 left-0 transition-all duration-500 p-5 h-screen z-20 bg-[#181C14] shadow shadow-slate-700 text-[#ECDFCC]">
+        <div
+          className="cursor-pointer"
+          onClick={() => {
+            setSidebarOpen(!sidebarOpen);
+          }}
+        >
+          <AlignJustifyIcon />
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className="shadow-md h-screen p-7">
-      <Link href="/dashboard">
-        <h2 className="text-xl font-bold">Ai-PDF-reader</h2>
-      </Link>
+    <div className="w-64 md:w-96 h-screen bg-[#181C14] text-[#ECDFCC] fixed top-0 left-0 z-30 md:relative transition-all p-5 duration-500 shadow shadow-slate-700">
+      <div className="flex gap-5 items-center justify-start">
+        <div
+          className="cursor-pointer block md:hidden"
+          onClick={() => {
+            setSidebarOpen(!sidebarOpen);
+          }}
+        >
+          <AlignJustifyIcon />
+        </div>
+        <div>
+          <Link href="/dashboard">
+            <h2 className="text-xl font-bold">AI-PDF-READER</h2>
+          </Link>
+        </div>
+      </div>
       <div className="mt-10">
         <UploadPdf isMaxFile={fileList?.length >= 5}/>
         <Link href={"/dashboard"}>
           <div
-            className={`flex gap-2 items-center mt-5 p-3 hover:bg-slate-100 cursor-pointer ${
-              path == "/dashboard" && "bg-slate-100"
+            className={`flex gap-2 items-center mt-5 p-3 hover:bg-slate-400 cursor-pointer ${
+              path == "/dashboard" && "bg-slate-500"
             }`}
           >
             <Layout />
@@ -41,8 +66,8 @@ const Sidebar = () => {
         </Link>
         <Link href={"/dashboard/upgrade"}>
           <div
-            className={`flex gap-2 items-center mt-1 p-3 hover:bg-slate-100 cursor-pointer ${
-              path == "/dashboard/upgrade" && "bg-slate-100"
+            className={`flex gap-2 items-center mt-1 p-3 hover:bg-slate-400 cursor-pointer ${
+              path == "/dashboard/upgrade" && "bg-slate-500"
             }`}
           >
             <Shield />
@@ -51,8 +76,8 @@ const Sidebar = () => {
         </Link>
       </div>
       {GetUserInfo && !GetUserInfo[0]?.upgrade && (
-        <div className="absolute bottom-24 w-[80%]">
-          <Progress value={(fileList?.length / 5) * 100} />
+        <div className="absolute bottom-24 pr-4 ">
+          <Progress value={(fileList?.length / 5) * 100}/>
           <p className="text-sm mt-2">
             {fileList?.length} out of 5 Pdf Uploaded
           </p>

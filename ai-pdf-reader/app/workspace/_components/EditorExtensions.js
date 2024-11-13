@@ -53,14 +53,14 @@ const EditorExtensions = ({ editor }) => {
     saveNotes({
       notes: editor.getHTML(),
       fileId: fileId,
-      createBy: user?.primaryEmailAddress?.emailAddress
+      createBy: user?.primaryEmailAddress?.emailAddress,
     });
   };
 
   return (
     editor && (
       <>
-        <div className="p-5">
+        <div className="p-5 mt-12">
           <div className="control-group flex ">
             <div className="flex flex-col">
               <div className="button-group">
@@ -68,8 +68,8 @@ const EditorExtensions = ({ editor }) => {
                   onClick={() => editor.chain().focus().toggleBold().run()}
                   className={
                     editor.isActive("bold")
-                      ? "bg-slate-300 rounded-lg p-2 mx-1"
-                      : "bg-white rounded-lg p-2 mx-1"
+                      ? "bg-slate-300 rounded-lg p-2 mx-1 text-black"
+                      : "rounded-lg p-2 mx-1"
                   }
                 >
                   <Bold />
@@ -78,8 +78,8 @@ const EditorExtensions = ({ editor }) => {
                   onClick={() => editor.chain().focus().toggleItalic().run()}
                   className={
                     editor.isActive("italic")
-                      ? "bg-slate-300 rounded-lg p-2 mx-1"
-                      : "bg-white rounded-lg p-2 mx-1"
+                      ? "bg-slate-300 rounded-lg p-2 mx-1 text-black"
+                      : "rounded-lg p-2 mx-1"
                   }
                 >
                   <Italic />
